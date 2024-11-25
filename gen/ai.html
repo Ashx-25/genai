@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chat</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.chat-container {
+    background-color: white;
+    width: 400px;
+    max-width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+}
+
+.chat-box {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-box .message {
+    margin: 10px 0;
+    padding: 8px;
+    border-radius: 5px;
+    max-width: 80%;
+}
+
+.chat-box .user {
+    background-color: #e0f7fa;
+    align-self: flex-end;
+}
+
+.chat-box .ai {
+    background-color: #f1f1f1;
+    align-self: flex-start;
+}
+
+.chat-input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    width: calc(100% - 20px);
+    box-sizing: border-box;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #007BFF;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    align-self: flex-end;
+    margin-bottom: 10px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+        /* Add these to the existing style.css */
+
+button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #007BFF;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Add a larger button for voice input */
+#voiceInputBtn {
+    background-color: #4CAF50;
+}
+
+#voiceInputBtn:hover {
+    background-color: #45a049;
+}
+
+/* Add styles for the Speak button */
+#speakBtn {
+    background-color: #f39c12;
+}
+
+#speakBtn:hover {
+    background-color: #e67e22;
+}
+
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-box" id="chatBox"></div>
+        <input type="text" id="userInput" placeholder="Type your message..." class="chat-input">
+        <button id="sendBtn">Send</button>
+        <button id="voiceInputBtn">🎤</button>
+        <button id="speakBtn">🔊</button>
+    </div>
+
+    <script >
+        document.getElementById('sendBtn').addEventListener('click', function() {
+    let userInput = document.getElementById('userInput').value;
+    if (userInput.trim() === "") return;
+
+    // Display user's message
+    appendMessage(userInput, 'user');
+    
+    // Clear input field
+    document.getElementById('userInput').value = '';
+    
+    // AI response (for now, just echo the user's input with a simple delay)
+    setTimeout(() => {
+        let aiResponse = generateAIResponse(userInput);
+        appendMessage(aiResponse, 'ai');
+        
+        // Use Text-to-Speech for AI response
+        speakText(aiResponse);
+    }, 1000);  // Simulate AI thinking time
+});
+
+document.getElementById('voiceInputBtn').addEventListener('click', function() {
+    startVoiceRecognition();
+});
+
+document.getElementById('speakBtn').addEventListener('click', function() {
+    let chatBox = document.getElementById('chatBox');
+    let lastAiMessage = chatBox.querySelector('.ai:last-child');
+    if (lastAiMessage) {
+        speakText(lastAiMessage.textContent);
+    }
+});
+
+function appendMessage(message, sender) {
+    let chatBox = document.getElementById('chatBox');
+    let messageDiv = document.createElement('div');
+    messageDiv.classList.add('message', sender);
+    messageDiv.textContent = message;
+    chatBox.appendChild(messageDiv);
+    
+    // Scroll to bottom
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function generateAIResponse(userMessage) {
+    // Simple AI response logic (this is where you would integrate with an AI service like OpenAI)
+    return "You said: " + userMessage;
+}
+
+// Voice Recognition (Speech-to-Text)
+function startVoiceRecognition() {
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    
+    recognition.lang = 'en-US';
+    recognition.start();
+    
+    recognition.onresult = function(event) {
+        let transcript = event.results[0][0].transcript;
+        appendMessage(transcript, 'user');
+        
+        // Simulate AI response
+        setTimeout(() => {
+            let aiResponse = generateAIResponse(transcript);
+            appendMessage(aiResponse, 'ai');
+            speakText(aiResponse); // Speak AI's response
+        }, 1000); // Simulate AI thinking time
+    };
+
+    recognition.onerror = function(event) {
+        console.error('Speech recognition error:', event.error);
+    };
+}
+
+// Text-to-Speech
+function speakText(text) {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'en-US';
+    window.speechSynthesis.speak(utterance);
+}
+
+    </script>
+</body>
+</html>

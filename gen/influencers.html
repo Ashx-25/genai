@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Influencers</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 30px;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    color: #333;
+}
+
+header p {
+    font-size: 1.2rem;
+    color: #777;
+}
+
+/* Influencers Container */
+.influencers-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.influencer-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.influencer-card:hover {
+    transform: translateY(-10px);
+}
+
+.influencer-card img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+.influencer-card h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.influencer-card p.bio {
+    color: #555;
+    margin-bottom: 15px;
+    font-size: 1rem;
+}
+
+button.more-btn {
+    padding: 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+button.more-btn:hover {
+    background-color: #0056b3;
+}
+
+.more-info {
+    margin-top: 10px;
+}
+
+.more-info a {
+    display: inline-block;
+    margin-top: 5px;
+    text-decoration: none;
+    color: #007BFF;
+    font-size: 1rem;
+}
+
+.more-info a:hover {
+    text-decoration: underline;
+}
+
+  </style>
+</head>
+<body>
+  <!-- Header Section -->
+  <header>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="influencers.html">Influencers</a></li>
+        <li><a href="brands.html">Brands</a></li>
+        <li><a href="domains.html" class="active">Domains</a></li>
+        <li><a href="/contact.html" class="cta">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+
+    <div class="influencers-container">
+        <div class="influencer-card">
+            <img src="/6-1.webp" alt="Influencer 1">
+            <h3>Jane Doe</h3>
+            <p class="bio">A fashion enthusiast and beauty expert with a passion for style.</p>
+            <button class="more-btn">More Info</button>
+            <div class="more-info" style="display: none;">
+                <p>Jane is a trendsetter in the fashion world with a loyal following on Instagram and YouTube.</p>
+                <a href="https://www.instagram.com" target="_blank">Instagram</a>
+                <a href="https://www.youtube.com" target="_blank">YouTube</a>
+            </div>
+        </div>
+
+        <div class="influencer-card">
+            <img src="/d0ba0b2ab074ad97156991f3911ca22f.jpg" alt="Influencer 2">
+            <h3>John Smith</h3>
+            <p class="bio">Tech guru and reviewer, passionate about the latest gadgets.</p>
+            <button class="more-btn">More Info</button>
+            <div class="more-info" style="display: none;">
+                <p>John provides insightful reviews on the latest gadgets and tech trends on his popular YouTube channel.</p>
+                <a href="https://www.instagram.com" target="_blank">Instagram</a>
+                <a href="https://www.youtube.com" target="_blank">YouTube</a>
+            </div>
+        </div>
+
+        <div class="influencer-card">
+            <img src="/OIP.jpeg" alt="Influencer 3">
+            <h3>Mary Johnson</h3>
+            <p class="bio">Fitness coach and health advocate, inspiring others to live a healthy lifestyle.</p>
+            <button class="more-btn">More Info</button>
+            <div class="more-info" style="display: none;">
+                <p>Mary motivates her followers with fitness routines, healthy eating tips, and wellness advice.</p>
+                <a href="https://www.instagram.com" target="_blank">Instagram</a>
+                <a href="https://www.youtube.com" target="_blank">YouTube</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+  <!-- Influencers Grid Section -->
+  <section id="influencers-section" class="influencers-section">
+    <h2>Influencers</h2>
+    <div id="influencers" class="influencers-grid"></div>
+  </section>
+  <center>
+  <button class="domain-btn" > <a href="/ai.html">chat</a></button>
+  </center>
+  <script >
+    // Get all "More Info" buttons
+const moreBtns = document.querySelectorAll('.more-btn');
+
+// Add event listeners to each button
+moreBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+        // Toggle visibility of the corresponding .more-info div
+        const moreInfo = this.nextElementSibling;
+        if (moreInfo.style.display === 'none' || moreInfo.style.display === '') {
+            moreInfo.style.display = 'block';
+            this.textContent = 'Show Less';
+        } else {
+            moreInfo.style.display = 'none';
+            this.textContent = 'More Info';
+        }
+    });
+});
+
+  </script>
+</body>
+</html>

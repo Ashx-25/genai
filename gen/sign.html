@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Basic reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.signin-container {
+    background-color: #ffffff;
+    padding: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    width: 100%;
+    max-width: 400px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+.signin-form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+input {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+button {
+    padding: 12px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Success message */
+.success-message {
+    background-color: #28a745;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.success-message.hidden {
+    display: none;
+}
+
+    </style>
+</head>
+<body>
+    <div class="signin-container">
+        <h1>Sign In</h1>
+        <form id="signinForm" class="signin-form">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="Enter your username" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+            <button type="submit" id="submitBtn"><a href="/index.HTML">Sign In</a></button>
+        </form>
+
+        <div id="successMessage" class="success-message" style="display: none;">
+            You have successfully signed in!
+        </div>
+    </div>
+
+    <script >
+        document.getElementById('signinForm').addEventListener('submit', function(event) {
+    event.preventDefault();  // Prevent the default form submission
+
+    // Get form values
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value.trim();
+
+    // Basic validation
+    if (username === "" || password === "") {
+        alert("Please fill out both fields.");
+        return;
+    }
+
+    // Simulate successful login
+    document.getElementById('signinForm').reset();  // Reset form fields
+    const successMessage = document.getElementById('successMessage');
+    successMessage.style.display = 'block';
+
+    // Hide the success message after 5 seconds
+    setTimeout(function() {
+        successMessage.style.display = 'none';
+    }, 5000);
+});
+
+    </script>
+</body>
+</html>
